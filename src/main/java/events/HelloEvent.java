@@ -7,8 +7,10 @@ public class HelloEvent extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event){
         String messageSent = event.getMessage().getContentRaw();
-        if(messageSent.equalsIgnoreCase("hello")){
-            event.getChannel().sendMessage("Hi").queue();
+        if(messageSent.equalsIgnoreCase("!hello")){
+            for(int i=0;i<120;i++){
+                event.getChannel().sendMessage("Hi").queue();
+            }
         }
     }
 }
