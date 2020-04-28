@@ -1,4 +1,5 @@
 import events.Calculator;
+import events.DeleteMessages;
 import events.HelloEvent;
 import events.Weather;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -18,5 +19,6 @@ public class BOT {
         jda.addEventListener(new HelloEvent());
         jda.addEventListener(new Calculator());
         jda.addEventListener(new Weather());
+        jda.addEventListener(new DeleteMessages());
     }
 }

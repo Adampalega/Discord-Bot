@@ -1,6 +1,7 @@
 package events;
 
 import helperclass.GetURL;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -13,10 +14,14 @@ public class Weather extends ListenerAdapter {
 
     @Override
     public void  onGuildMessageReceived(GuildMessageReceivedEvent event){
+        Dotenv dotenv = Dotenv.configure()
+                .directory("src/assets")
+                .load();
+
         String[] message = event.getMessage().getContentRaw().split(" ");
         if(message[0].equalsIgnoreCase("!weather") && message[1].equalsIgnoreCase("dab")){
             try {
-                String temp = JsonReaderURL.JSONstringer("https://2f4y.tk/api","temp");
+                String temp = JsonReaderURL.JSONstringer(dotenv.get("TOMEK"),"temp");
                 event.getChannel().sendMessage("W Debie jest" + temp + " C").queue();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -24,7 +29,7 @@ public class Weather extends ListenerAdapter {
 
         }else if(message[0].equalsIgnoreCase("!weather") && message[1].equalsIgnoreCase("cisnienie")){
             try {
-                String cisnienie = JsonReaderURL.JSONstringer("https://2f4y.tk/api","pressure");
+                String cisnienie = JsonReaderURL.JSONstringer(dotenv.get("TOMEK"),"pressure");
                 event.getChannel().sendMessage("Jaworzno cisnienie " + cisnienie + " hpa").queue();
             } catch (IOException e){
                 e.printStackTrace();
